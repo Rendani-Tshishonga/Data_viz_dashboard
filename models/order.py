@@ -4,6 +4,7 @@
 from datetime import datetime
 from models.base_model import BaseModel, Base
 from sqlalchemy import Column, ForeignKey, DateTime
+from sqlalchemy.orm import relationship
 
 class Order(BaseModel, Base):
     __tablename__ = 'orders'
@@ -13,3 +14,4 @@ class Order(BaseModel, Base):
     supplier_id = Column(String(60), ForeignKey(suppliers.id), nullable=False)
     order_date = Column(DateTime, nullable=False, default=datetime.utcnow())
     quantity_ordered = Column(Integer, nullable=False)
+    shipments = relationship("Shipment", backref="order", cascade="all, delete, delete-orphan")

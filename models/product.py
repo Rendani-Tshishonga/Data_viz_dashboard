@@ -6,6 +6,7 @@ A product class which will be mapped to a mysql database.
 # Import Libraries
 from sqlalchemy import Column, String, Float
 from models.base_model import BaseModel, Base
+from sqlalchemy.orm import relationship
 
 class Product(BaseModel, Base):
     __tablename__ = 'products'
@@ -15,3 +16,4 @@ class Product(BaseModel, Base):
     description = Column(String(1024), nullable=True)
     unit_price = Column(Float(5), nullable=False, default=0)
     quantity_available = Column(Integer, nullable=False)
+    orders = relationship("Order", backref="product", cascade="all, delete, delete-orphan")
