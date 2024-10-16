@@ -10,8 +10,13 @@ app = Flask(__name__)
 
 # Create a route to the home_page
 @app.route("/")
+def login():
+    """A route to the login page of the dashboard"""
+    return render_template('login.html')
+
 @app.route("/home")
 def home():
+    """A route to the home page of the route"""
     return render_template('home.html')
 
 if __name__ == "__main__":
