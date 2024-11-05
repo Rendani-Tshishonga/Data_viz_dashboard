@@ -22,10 +22,11 @@ class DBStorage():
     def __init__(self):
         # Initialize a connection to the mysql database
         self.__engine = create_engine(
-            'mysql+mysqldb://{}:{}@{}/{}'.format(
-                os.environ.get('DATA_DEV'),
+                'mysql+mysqldb://{}:{}@{}:{}/{}'.format(
+                os.environ.get('MYSQL_USER'),
                 os.environ.get('MYSQL_PWD'),
                 os.environ.get('MYSQL_HOST'),
+                os.environ.get('MYSQL_PORT'),
                 os.environ.get('MYSQL_DB'),
                 pool_pre_ping=True
             )

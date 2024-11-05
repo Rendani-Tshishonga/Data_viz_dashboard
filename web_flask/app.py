@@ -8,7 +8,7 @@ from flask import flask, render_template
 # Instantiate the flask application
 app = Flask(__name__)
 
-# Create a route to the home_page
+# Create a route to the login page
 @app.route("/")
 def login():
     """A route to the login page of the dashboard"""
