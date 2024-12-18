@@ -9,10 +9,10 @@ class RegistrationForm(FlaskForm):
     confirm_password = PasswordField('Confirm Password',                                                                                                                  validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Sign Up') 
 
-""" A class that logins to a form"""
+""" A class that logins a user into the application"""
 class LoginForm(FlaskForm):
     username = StringField('Username',
                            validators=[DataRequired(), Length(min=2, max=20)])
     password = PasswordField('Password', validators=[DataRequired()])
-    remember_me = BooleanField('Remember Me')
+    remember  = BooleanField('Remember Me')
     submit = SubmitField('Login')
