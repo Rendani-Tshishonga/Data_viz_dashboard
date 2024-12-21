@@ -17,7 +17,7 @@ app.config['SECRET_KEY'] = secrets.token_hex(16)
 
 
 # Create a route to the registration form
-@app.route("/register" methods=['GET', 'POST'])
+@app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
     if form.validate_on_submit():
