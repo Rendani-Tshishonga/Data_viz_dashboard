@@ -1,37 +1,51 @@
-{% extends "layout.html %}
+{% extends "layout.html" %}
 {% block content %}
-    <div class="container">
-        <nav>
-            <ul>
-                <li><a href="#">
-                    <i class="fas fa-home"></i>
-                    <span class="nav-item">Home</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="fas fa-user"></i>
-                    <span class="nav-item">Profile</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="fas fa-chart-bar"></i>
-                    <span class="nav-item">Analytics</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="fas fa-tasks"></i>
-                    <span class="nav-item">Tasks</span>
-                    </a></li>
-                <li><a href="#">
-                    <i class="fas fa-cog"></i>
-                    <span class="nav-item">Settings</span>
-                </a></li>
-                <li><a href="#">
-                    <i class="fas fa-question-circle"></i>
-                    <span class="nav-item">help</span>
-                </a></li>
-                <li><a href="#" class="logout">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <span class="nav-item">Logout</span>
-                </a></li>
-            </ul>
-        </nav>
-   </div>
+    <aside id="sidebar">
+	<div class="d-flex">
+	    <button class="toggle-btn" type=button">
+		<i class="lni lni-grid-alt"></i>
+	    </button>
+	    <div class="sidebar-logo">
+		<a href="#">Datmod Analytics</a>
+	    </div>
+	</div>
+	<ul class="sidebar-nav">
+	    <li class="sidebar-item">
+		<a href="#" class="sidebar-link">
+		    <i class="bi bi-house-fill"></i>
+		    <span>Home</span>
+		</a>
+	    </li>
+	    <li class="sidebar-item">
+		<a href="#" class="sidebar-link">
+		    <i class="bi bi-basket3-fill"</i>
+		    <span>Orders</span>
+		</a>
+	    </li>
+	    <li class="sidebar-item">
+		<a href="#" class=sidebar-link">
+		    <i class="bi bi-box-fill"></i>
+		    <span>Suppliers</span>
+		</a>
+	    </li>
+	    <li class="sidebar-item">
+		<a href="#" class="sidebar-link">
+		    <i class="bi bi-calendar2-check-fill"></i>
+		    <span>Shipment</span>
+		</a>
+	    </li>
+	    <li class="sidebar-item">
+		<a href="#" class="sidebar-link">
+		    <i class="bi bi-info-square-fill"></i>
+		    <span>Help</span>
+		</a>
+	    </li>
+	</ul>
+	<div class="sidebar-footer">
+	    <a href="#" class="sidebar-link">
+		<i class="bi bi-x-square-fill"></i>
+		<span>Logout</span>
+	    </a>
+	</div>
+    </aside>
 {% endblock content %}
