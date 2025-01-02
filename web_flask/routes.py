@@ -3,20 +3,13 @@
 """ A script that creates a flask application"""
 
 # Import the flask library
-from flask import Flask, render_template,url_for, flash, redirect
+from flask import render_template,url_for, flash, redirect
+from web_flask import app, storage
 from forms import RegistrationForm, LoginForm
-import secrets
 
 
-# Instantiate the flask application
-app = Flask(__name__)
+""" Create a route to the registration form"""
 
-
-# Create a secret key that is 16 bytes in size
-app.config['SECRET_KEY'] = secrets.token_hex(16)
-
-
-# Create a route to the registration form
 @app.route("/register", methods=['GET', 'POST'])
 def register():
     form = RegistrationForm()
@@ -26,7 +19,8 @@ def register():
     return render_template('register.html', title='Register', form=form)
 
 
-# Create a route to the login page
+"""Create a route to the login page"""
+
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     """A route to the login page of the dashboard"""
@@ -39,11 +33,19 @@ def login():
     return render_template('login.html', title='Login', form=form)
 
 
+"""Create a route to the home page"""
+
 @app.route("/home")
 def home():
     """A route to the home page of the route"""
     return render_template('home.html', title='Home')
 
+
+"""Create a route to the error page"""
+
+app.route("/404")
+def 404_error():
+    return render_template('404_error.html', title='404')
 
 if __name__ == "__main__":
     app.run(debug=True)

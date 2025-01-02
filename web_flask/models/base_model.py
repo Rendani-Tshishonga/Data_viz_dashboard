@@ -6,16 +6,16 @@ This module defines a base model for the metadata of our models
 # import Libraries
 from uuid import uuid4
 from datetime import datetime
-import models
+import models import storage
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, String, dateTime
+from sqlalchemy import Column, String, DateTime
 
 Base = declarative_base()
 
 class BaseModel:
     id = Column(String(60), primary_key=True, nullable=False)
-    created_at = Column(DateTime, nullable=False, default=datetime.utcnow())
-    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow())
+    created_at = Column(DateTime, nullable=False, default=datetime.utcnow)
+    updated_at = Column(DateTime, nullable=False, default=datetime.utcnow)
 
     def __init__(self, *args, **kwargs):
         self.id = str(uuid4())
@@ -28,8 +28,8 @@ class BaseModel:
     def save(self):
         """Adds and saves the current database object to the database"""
         self.updated_at = datetime.utcnow()
-        models.storage.new(self)
-        models.storage.save()
+        storage.new(self)
+        storage.save()
     
     def to_dict(self):
         """Returns a dictionary of all the instance"""
@@ -43,4 +43,4 @@ class BaseModel:
     
     def delete(self):
         """Deletes the current instance of storage"""
-        models.storage.delete(self)
+        storage.delete(self)

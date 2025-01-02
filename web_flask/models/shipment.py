@@ -10,6 +10,6 @@ class Shipment(BaseModel, Base):
 
     shipment_id = Column(String(60), nullable=False)
     order_id = Column(String(60), ForeignKey(orders.id), nullable=False)
-    shipment_date = Column(DateTime, nullable=False, default=datetime.utcnow())
+    shipment_date = Column(DateTime, nullable=False, default=datetime.utcnow)
     estimated_arrival_date = Column(DateTime, nullable=False)
     actual_arrival_date = Column(DateTime, nullable=False)

@@ -18,8 +18,8 @@ if __name__ == '__main__':
     try:
         engine = get_connection()
         print("Connection to the {} for user {} created successfully.".format(
-            os.environ.get('MYSQL_HOST'),
-            os.environ.get('MYSQL_USER')
+            os.environ.get(MYSQL_HOST),
+            os.environ.get(MYSQL_USER)
         ))
 
     except Exception as ex:
