@@ -4,7 +4,7 @@
 
 # Import the flask library
 from flask import render_template,url_for, flash, redirect
-from web_flask import app, storage
+from dashboard import app, storage
 from forms import RegistrationForm, LoginForm
 
 
