@@ -13,8 +13,8 @@ orders table in our database
 
 
 class Order(db.Model):
-    order_id = db.Column(db.Integer, nullable=False, primary_key=True)
-    order_date = db.Column(db.DateTime, nullable, default=datetime.utcnow)
+    id = db.Column(db.Integer, nullable=False, primary_key=True)
+    order_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     quantity_ordered = db.Column(db.Integer, nullable=False)
 
     """Create the __repr__ method that returns a printable representation of the object"""
@@ -28,7 +28,7 @@ products table in our database
 
 
 class Products(db.Model):
-    product_id = db.Column(db.Integer, primary_key=True,  nullable=False)
+    id = db.Column(db.Integer, primary_key=True,  nullable=False)
     name = db.Column(db.String(128), nullable=False)
     description = db.Column(db.Text)
     unit_price = db.Column(db.Float(5), nullable=False, default=0)
@@ -45,9 +45,9 @@ shipment table in our database
 
 
 class Shipments(db.Model):
-    shipment_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
     shipment_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
-    estimated_arrival_date = db.Column(db.DateTime, nulllable=False, default=datetime.utcnow)
+    estimated_arrival_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     actual_arrival_date = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
     
     """Create the __repr__ method that returns a printable representation of the object"""
@@ -60,7 +60,8 @@ suppliers table in our database
 """
 
 class Suppliers(db.Model):
-    supplier_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    company_name = db.Column(db.String(128), nullable=False)
     address = db.Column(db.String(128), nullable=False)
     contact_person = db.Column(db.String(20), nullable=False)
     phone_number = db.Column(db.String(20), nullable=False)
@@ -68,3 +69,18 @@ class Suppliers(db.Model):
     """Create the __repr__ method that returns a printable representation of the object"""
     def __repr__(self):
         return f'Suppliers("{self.suppplier_id}", "{self.conatct_person}")'
+
+"""
+Create a User class which will be mapped to the
+users table in our database
+"""
+
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    username = db.Column(db.String(20), unique=True, nullable=False)
+    email = db.Column(db.String(120), unique=True, nullable=False)
+    password= db.Column(db.String(60), nullable=False)
+
+    """Create the __repr__ method that returns a printable representation of the object"""
+    def __repr__(self):
+        return f'User("{self.user_id}", "{self.username}", "{self.email}")'
