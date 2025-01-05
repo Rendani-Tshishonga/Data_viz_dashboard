@@ -4,7 +4,6 @@
 
 # Import the flask library
 from flask import render_template,url_for, flash, redirect
-from dashboard import app, storage
 from forms import RegistrationForm, LoginForm
 
 
@@ -46,6 +45,3 @@ def home():
 app.route("/404")
 def 404_error():
     return render_template('404_error.html', title='404')
-
-if __name__ == "__main__":
-    app.run(debug=True)
