@@ -26,7 +26,7 @@ class Order(db.Model):
 
     """Create the __repr__ method that returns a printable representation of the object"""
     def __repr__(self):
-        return f'Order("{self.order_id}", "{self.order_date}", "{self.quantity_ordered}")'
+        return f'Order("{self.id}", "{self.order_date}", "{self.quantity_ordered}")'
 
 """
 Create a product class which will be mapped to the 
@@ -75,7 +75,7 @@ class Suppliers(db.Model):
     
     """Create the __repr__ method that returns a printable representation of the object"""
     def __repr__(self):
-        return f'Suppliers("{self.suppplier_id}", "{self.conatct_person}")'
+        return f'Suppliers("{self.id}", "{self.conatct_person}")'
 
 """
 Create a User class which will be mapped to the
@@ -89,4 +89,4 @@ class User(db.Model, UserMixin):
 
     """Create the __repr__ method that returns a printable representation of the object"""
     def __repr__(self):
-        return f'User("{self.user_id}", "{self.username}", "{self.email}")'
+        return f'User("{self.id}", "{self.username}", "{self.email}")'

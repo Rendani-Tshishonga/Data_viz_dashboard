@@ -7,13 +7,15 @@ from dashboard import app, db, bcrypt
 from flask import render_template,url_for, flash, redirect
 from dashboard.forms import RegistrationForm, LoginForm
 from dashboard.models import User
-from flask_login import login_user
+from flask_login import login_user, current_user, logout_user, login_required
 
 
 """ Create a route to the registration form"""
 
 @app.route("/register", methods=['GET', 'POST'])
 def register():
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = RegistrationForm()
     if form.validate_on_submit():
         hashed_password = bcrypt.generate_password_hash(form.password.data).decode('utf-8')
@@ -30,6 +32,8 @@ def register():
 @app.route("/login", methods=['GET', 'POST'])
 def login():
     """A route to the login page of the dashboard"""
+    if current_user.is_authenticated:
+        return redirect(url_for('home'))
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(username=form.username.data).first()
@@ -44,13 +48,53 @@ def login():
 """Create a route to the home page"""
 
 @app.route("/home")
+@login_required
 def home():
     """A route to the home page of the route"""
     return render_template('home.html', title='Home')
 
 
-"""Create a route to the error page"""
+"""Create a logout route to handle user sessions"""
 
-@app.route("/404")
-def error():
-    return render_template('404_error.html', title='404')
+@app.route("/logout")
+def logout():
+    logout_user()
+    return redirect(url_for('login'))
+
+
+"""Create a route that will hanle the 404 HTTP error"""
+
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html', title='Page_not_found'), 404
+
+
+"""Create a products route"""
+
+@app.route("/products")
+@login_required
+def get_table():
+    return render_template('products.html', title="Product")
+
+"""Create an order route"""
+
+@app.route("/order")
+@login_required
+def get_table():
+    return render_template('order.html', title="Order")
+
+
+"""Create a supplier route"""
+
+@app.route("/supplier")
+@login_required
+def get_table():
+    return render_template('supplier.html', title="Suppliers")
+
+
+"""Create a shipment route"""
+
+@app.route("/shipment")
+@login_required
+def get_table():
+    return render_template('shipment.html', title="Shipment")
