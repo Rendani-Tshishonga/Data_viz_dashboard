@@ -75,18 +75,16 @@ def page_not_found(e):
 @app.route("/products")
 @login_required
 def product():
-    product = Products.query.all()
-    products = pd.DataFrame(product).to_dict(orient="list")
-    return render_template('products.html', title="Products", products=products)
+    product = Products.query
+    return render_template('products.html', title="Products", product=product)
 
 """Create an order route"""
 
 @app.route("/order")
 @login_required
 def order():
-    order = Order.query.all()
-    orders = pd.DataFrame(order).to_dict(orient="list")
-    return render_template('order.html', title="Orders", orders=orders)
+    order = Order.query
+    return render_template('order.html', title="Orders", order=order)
 
 
 """Create a supplier route"""

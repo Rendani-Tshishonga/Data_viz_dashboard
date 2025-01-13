@@ -32,14 +32,21 @@
 </nav>
 <!-- Order Table-->
 <div class="container">
-    <table class="table">
-	{% for column in orders.keys() %}
-	    <thead>
-		<tr>
-		    <th scope="col">{{ column }}</th>
-		</tr>
-	    </thead>
-	{% endfor %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>order_date/th>
+                <th>quantity_ordered</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for orders in order %}
+                <tr>
+                    <td>{{ orders.order_date }}</td>
+                    <td>{{ orders.quantity_ordered }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
     </table>
 </div>
 {% endblock content %}

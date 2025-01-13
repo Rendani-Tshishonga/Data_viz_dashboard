@@ -31,14 +31,25 @@
     </div>
 </nav>
 <div class="container">
-    <table class="table">
-        {% for column in products.keys() %}
-            <thead>
-                <tr>
-                    <th scope="col">{{ column }}</th>
-                </tr>
-            </thead>
-        {% endfor %}
+    <table class="table table-striped">
+	<thead>
+	    <tr>
+		<th>Name</th>
+		<th>Description</th>
+		<th>unit_price</th>
+		<th>Quantity_Available</th>
+	    </tr>
+	</thead>
+	<tbody>
+	    {% for products in product %}
+		<tr>
+		    <td>{{ products.name }}</td>
+		    <td>{{ products.description }}</td>
+		    <td>{{ products.unit_price }}</td>
+		    <td>{{ products.quantity_available }}</td>
+		</tr>
+	    {% endfor %}
+	</tbody>
     </table>
 </div>
 {% endblock content %}
