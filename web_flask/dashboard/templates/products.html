@@ -30,4 +30,15 @@
 	</div>
     </div>
 </nav>
+<div class="container">
+    <table class="table">
+        {% for column in products.keys() %}
+            <thead>
+                <tr>
+                    <th scope="col">{{ column }}</th>
+                </tr>
+            </thead>
+        {% endfor %}
+    </table>
+</div>
 {% endblock content %}

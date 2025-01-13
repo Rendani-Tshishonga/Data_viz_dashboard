@@ -1,7 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="container-fluid justify-content-center">
-	<h1>404 - Page Not Found</h1>
-	<a href="{{ url_for('home') }}" class="btn active" role="button" data-bs-toggle="button" aria-pressed="true">Go to home page</a>
+    <div class="container-fluid">
+	<div class="justify-content-center">
+	    <h1>404 - Page Not Found</h1>
+            <a href="{{ url_for('home') }}" class="btn active" role="button" data-bs-toggle="button">Go to home page</a>
+	</div>
     </div
 {% endblock content %}

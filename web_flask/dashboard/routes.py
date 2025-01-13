@@ -6,8 +6,9 @@
 from dashboard import app, db, bcrypt
 from flask import render_template,url_for, flash, redirect
 from dashboard.forms import RegistrationForm, LoginForm
-from dashboard.models import User
+from dashboard.models import User, Products, Order, Shipments, Suppliers
 from flask_login import login_user, current_user, logout_user, login_required
+import pandas as pd
 
 
 """ Create a route to the registration form"""
@@ -73,28 +74,32 @@ def page_not_found(e):
 
 @app.route("/products")
 @login_required
-def get_table():
-    return render_template('products.html', title="Product")
+def product():
+    product = Products.query.all()
+    products = pd.DataFrame(product).to_dict(orient="list")
+    return render_template('products.html', title="Products", products=products)
 
 """Create an order route"""
 
 @app.route("/order")
 @login_required
-def get_table():
-    return render_template('order.html', title="Order")
+def order():
+    order = Order.query.all()
+    orders = pd.DataFrame(order).to_dict(orient="list")
+    return render_template('order.html', title="Orders", orders=orders)
 
 
 """Create a supplier route"""
 
 @app.route("/supplier")
 @login_required
-def get_table():
-    return render_template('supplier.html', title="Suppliers")
+def supplier():
+    return render_template('suppliers.html', title="Suppliers")
 
 
 """Create a shipment route"""
 
 @app.route("/shipment")
 @login_required
-def get_table():
-    return render_template('shipment.html', title="Shipment")
+def shipment():
+    return render_template('shipments.html', title="Shipments")
