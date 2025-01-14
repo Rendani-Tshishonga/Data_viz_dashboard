@@ -8,7 +8,6 @@ from flask import render_template,url_for, flash, redirect
 from dashboard.forms import RegistrationForm, LoginForm
 from dashboard.models import User, Products, Order, Shipments, Suppliers
 from flask_login import login_user, current_user, logout_user, login_required
-import pandas as pd
 
 
 """ Create a route to the registration form"""
