@@ -23,6 +23,7 @@
 	<!-- Navbar Logout-->
 	<div class="navbar-nav">
 	    {% if current_user.is_authenticated %}
+	       <a class="nav-item nav-link" href="{{ url_for('new_supplier') }}">New Record</a>
 	       <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
 	    {% else %}
 	        <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>
@@ -30,4 +31,27 @@
 	</div>
     </div>
 </nav>
+<!-- Supplier Table-->
+<div class="container">
+    <table class="table table-striped">
+	<thead>
+	    <tr>
+		<th>Company Name</th>
+		<th>Company Address</th>
+		<th>Contact Person</th>
+		<th>Phone Number</th>
+	    </tr>
+	</thead>
+	<tbody>
+	    {% for suppliers in supplier%}
+		<tr>
+		    <td>{{ suppliers.company_name }}</td>
+		    <td>{{ suppliers.address }}</td>
+		    <td>{{ suppliers.contact_person }}</td>
+		    <td>{{ suppliers.phone_number }}</td>
+		</tr>
+	    {% endfor %}
+	</tbody>
+    </table>
+</div>
 {% endblock content %}

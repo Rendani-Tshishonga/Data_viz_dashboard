@@ -23,6 +23,7 @@
 	<!-- Navbar Logout-->
 	<div class="navbar-nav">
 	    {% if current_user.is_authenticated %}
+	       <a class="nav-item nav-link" href="{{ url_for('new_supplier') }}">New Record</a>
 	       <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
 	    {% else %}
 	        <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>

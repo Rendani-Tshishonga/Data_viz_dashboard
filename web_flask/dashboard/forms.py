@@ -26,3 +26,13 @@ class LoginForm(FlaskForm):
     password = PasswordField('Password', validators=[DataRequired()])
     remember  = BooleanField('Remember Me')
     submit = SubmitField('Login')
+
+
+""" A class that creates a new supplier and posts it to the application"""
+class SupplierForm(FlaskForm):
+    company_name = StringField('Company Name', validators=[DataRequired()])
+    address = StringField('Address', validators=[DataRequired()])
+    contact_person = StringField('Contact Name', validators=[DataRequired()])
+    phone_number = StringField('Phone Number', validators=[DataRequired(), Length(min=10, max=12)])
+    submit = SubmitField('Submit')
+

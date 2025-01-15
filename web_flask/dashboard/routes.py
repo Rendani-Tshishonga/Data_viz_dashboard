@@ -5,7 +5,7 @@
 # Import the flask library
 from dashboard import app, db, bcrypt
 from flask import render_template,url_for, flash, redirect
-from dashboard.forms import RegistrationForm, LoginForm
+from dashboard.forms import RegistrationForm, LoginForm, SupplierForm
 from dashboard.models import User, Products, Order, Shipments, Suppliers
 from flask_login import login_user, current_user, logout_user, login_required
 
@@ -46,7 +46,7 @@ def login():
 
 
 """Create a route to the home page"""
-
+@app.route("/")
 @app.route("/home")
 @login_required
 def home():
@@ -91,7 +91,18 @@ def order():
 @app.route("/supplier")
 @login_required
 def supplier():
-    return render_template('suppliers.html', title="Suppliers")
+    supplier = Suppliers.query
+    return render_template('suppliers.html', title="Suppliers", supplier=supplier)
+
+"""Create a new supplier route"""
+@app.route("/supplier/new", methods=['GET', 'POST'])
+@login_required
+def new_supplier():
+    form = SupplierForm()
+    if form.validate_on_submit():
+        flash('A new supplier has been created successfully!', 'success')
+        return redirect(url_for('supplier'))
+    return render_template('create_supplier.html', title="New Supplier", form=form)
 
 
 """Create a shipment route"""
