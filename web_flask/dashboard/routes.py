@@ -100,6 +100,10 @@ def supplier():
 def new_supplier():
     form = SupplierForm()
     if form.validate_on_submit():
+        supplier = Suppliers(company_name=form.company_name.data, address=form.address.data,
+                             contact_person=form.contact_person.data, phone_number=form.phone_number.data)
+        db.session.add(supplier)
+        db.session.commit()
         flash('A new supplier has been created successfully!', 'success')
         return redirect(url_for('supplier'))
     return render_template('create_supplier.html', title="New Supplier", form=form)
