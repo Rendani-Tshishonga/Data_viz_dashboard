@@ -2,9 +2,20 @@
 {% block content %}
     <div class="container">
 	<h1 class="h1 mt-4 mb-4">Getting Started</h1>
-	<div>
-	    <label for="formFileLg" class="form-label">Uplaod .csv file</label>
-	    <input class="form-control form-control-lg" id="formFileLg" type="file">
+	<form method="POST" action="" enctype="multipart/form-data">
+	    {{ form.hidden_tag() }}
+	    <div class="input-group mb-3">
+	        {{ form.file.label(class="input-group-text") }}
+		{{ form.file(class="form-control-file form-control form-control-lg") }}
+		{% if form.file.errors %}
+		    {% for error in form.file.errors %}
+		        <span class="text-danger">{{ error }}</span></br>
+		    {% endfor %}
+		{% endif %}
+	    </div>
+	</form>
+	<div class="form-group mt-2">
+	    {{ form.submit(class="btn btn-outline-info") }}
 	</div>
     </div>
 {% endblock content %}

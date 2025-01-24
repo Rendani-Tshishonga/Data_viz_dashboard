@@ -89,4 +89,4 @@ class User(db.Model, UserMixin):
 
     """Create the __repr__ method that returns a printable representation of the object"""
     def __repr__(self):
-        return f'User("{self.id}", "{self.username}", "{self.email}")'
+        return f'User("{self.id}", "{self.username}")'

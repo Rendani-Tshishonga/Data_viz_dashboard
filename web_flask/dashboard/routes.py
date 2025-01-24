@@ -4,10 +4,12 @@
 
 # Import the flask library
 from dashboard import app, db, bcrypt
-from flask import render_template,url_for, flash, redirect
-from dashboard.forms import RegistrationForm, LoginForm, SupplierForm
+from flask import render_template,url_for, flash, redirect, request
+from dashboard.forms import RegistrationForm, LoginForm, SupplierForm, UpdateAccount, FileForm
 from dashboard.models import User, Products, Order, Shipments, Suppliers
 from flask_login import login_user, current_user, logout_user, login_required
+import os
+import secrets
 
 
 """ Create a route to the registration form"""
@@ -44,14 +46,27 @@ def login():
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
 
+def save_file(form_file):
+    file_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_file.filename)
+    filename = file_hex + f_ext
+    file_path = os.path.join(app.root_path, 'static/analytic_docs', filename)
+    form_file.save(file_path)
+
 
 """Create a route to the home page"""
 @app.route("/")
-@app.route("/home")
+@app.route("/home", methods=['GET', 'POST'])
 @login_required
 def home():
     """A route to the home page of the route"""
-    return render_template('home.html', title='Home')
+    form = FileForm()
+    if form.validate_on_submit():
+        if form.file.data:
+            save_file(form.file.data)
+        flash('Your file has been uploaded', 'success')
+        return redirect(url_for('home'))
+    return render_template('home.html', title='Home', form=form)
 
 
 """Create a logout route to handle user sessions"""
@@ -115,3 +130,19 @@ def new_supplier():
 @login_required
 def shipment():
     return render_template('shipments.html', title="Shipments")
+
+
+"""Create a route for the user account"""
+
+@app.route("/account", methods=['GET', 'POST'])
+@login_required
+def account():
+    form = UpdateAccount()
+    if form.validate_on_submit():
+        current_user.username = form.username.data
+        db.session.commit()
+        flash('your account has been updated!', 'success')
+        return redirect(url_for('account'))
+    elif request.method == 'GET':
+        form.username.data = current_user.username
+    return render_template('accounts.html', title='Account', form=form)
