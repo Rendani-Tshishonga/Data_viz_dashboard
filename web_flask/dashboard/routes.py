@@ -5,11 +5,13 @@
 # Import the flask library
 from dashboard import app, db, bcrypt
 from flask import render_template,url_for, flash, redirect, request
-from dashboard.forms import RegistrationForm, LoginForm, SupplierForm, UpdateAccount, FileForm
+from dashboard.forms import (RegistrationForm, LoginForm, SupplierForm,
+                             UpdateAccount, FileForm, ResetUserCredentialsForm, ResetPasswordForm)
 from dashboard.models import User, Products, Order, Shipments, Suppliers
 from flask_login import login_user, current_user, logout_user, login_required
 import os
 import secrets
+from werkzeug.utils import secure_filename
 
 
 """ Create a route to the registration form"""
@@ -41,17 +43,11 @@ def login():
         user = User.query.filter_by(username=form.username.data).first()
         if user and bcrypt.check_password_hash(user.password, form.password.data):
             login_user(user, remember=form.remember.data)
-            return redirect(url_for('home'))
+            next_page = request.args.get('next')
+            return redirect(next_page) if next_page else  redirect(url_for('home'))
         else:
             flash('Login Unsuccessful. Please check username and password', 'danger')
     return render_template('login.html', title='Login', form=form)
-
-def save_file(form_file):
-    file_hex = secrets.token_hex(8)
-    _, f_ext = os.path.splitext(form_file.filename)
-    filename = file_hex + f_ext
-    file_path = os.path.join(app.root_path, 'static/analytic_docs', filename)
-    form_file.save(file_path)
 
 
 """Create a route to the home page"""
@@ -62,8 +58,10 @@ def home():
     """A route to the home page of the route"""
     form = FileForm()
     if form.validate_on_submit():
-        if form.file.data:
-            save_file(form.file.data)
+        uploaded_file = form.file.data
+        filename = secure_filename(uploaded_file.filename)
+        if filename != '':
+            form.file.data.save(filename)
         flash('Your file has been uploaded', 'success')
         return redirect(url_for('home'))
     return render_template('home.html', title='Home', form=form)

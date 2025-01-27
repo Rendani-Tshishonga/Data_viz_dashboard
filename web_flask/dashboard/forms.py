@@ -55,3 +55,18 @@ class FileForm(FlaskForm):
     file = FileField('Upload file', validators=[FileAllowed(['csv', 'json'])])
     submit = SubmitField('Upload')
 
+""" A class to reset user credentials"""
+class ResetUserCredentialsForm(FlaskForm):
+    username = StringField('Username', validators=[DataRequired()])
+    submit = SubmitField('Request Password Reset')
+
+    def validate_username(self, username):
+        user = User.query.filter_by(username=username.data).first()
+        if user is None:
+            ValidattionError('There is no account with that username. You must register first.')
+
+""" A class to reset user password """
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')
